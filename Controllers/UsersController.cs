@@ -23,5 +23,19 @@ namespace csharp_crud_api.Controllers
         {
             return await _userContext.Users.ToListAsync();
         }
+
+        // GET : api/users/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<User>> GetUser(int id)
+        {
+            var user = await _userContext.Users.FindAsync(id);
+
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
     }
 }
