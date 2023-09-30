@@ -63,6 +63,29 @@ namespace csharp_crud_api.Controllers
             return NoContent();
         }
 
+        // DELETE api/users/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            var user = await _userContext.Users.FindAsync(id);
+
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            _userContext.Remove(user);
+            await _userContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        //dummy endpoint to test the database connection
+        [HttpGet("test")]
+        public string Test()
+        {
+            return "Hello World!";
+        }
 
 
     }
