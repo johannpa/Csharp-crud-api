@@ -48,5 +48,22 @@ namespace csharp_crud_api.Controllers
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
         }
 
+        // PUT api/users/5
+        [HttpPut("{id}")]
+        public async Task<ActionResult> PutUser(int id, User user)
+        {
+            if(id != user.Id)
+            {
+                return BadRequest();
+            }
+
+            _userContext.Entry(user).State = EntityState.Modified;
+            await _userContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
+
     }
 }
