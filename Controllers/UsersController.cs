@@ -37,5 +37,16 @@ namespace csharp_crud_api.Controllers
 
             return user;
         }
+
+        // POST api/users
+        [HttpPost]
+        public async Task<ActionResult<User>> PostUser(User user)
+        {
+            _userContext.Users.Add(user);
+            await _userContext.SaveChangesAsync();
+
+            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, user);
+        }
+
     }
 }
